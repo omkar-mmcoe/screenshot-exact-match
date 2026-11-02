@@ -27,6 +27,7 @@ import {
   Coffee,
   Trash2,
   Plus,
+  PenLine,
   BookOpen,
 } from 'lucide-react';
 import {
@@ -726,9 +727,9 @@ export default function App() {
   // ─── Render ─────────────────────────────────────────────────────────────────
 
   return (
-    <div className="min-h-screen flex bg-background text-foreground selection:bg-primary/10 font-sans">
+    <div className="min-h-screen flex flex-col lg:flex-row bg-background text-foreground selection:bg-primary/10 font-sans">
       {/* ─── Compact Sidebar Navigation ──────────────────────────────────── */}
-      <aside className="w-64 bg-card border-r border-stone-200 flex flex-col justify-between shrink-0 no-print z-20">
+      <aside className="w-full lg:w-64 bg-card border-b lg:border-b-0 lg:border-r border-stone-200 flex flex-col justify-between shrink-0 no-print z-20">
         <div>
           {/* Branding Identity */}
           <div className="h-16 flex items-center px-5 border-b border-stone-200 space-x-3">
@@ -745,8 +746,8 @@ export default function App() {
           </div>
 
           {/* Academic Scope Selectors (Dynamic, Database-Backed) */}
-          <div className="p-4 border-b border-stone-200 bg-background/50 space-y-2.5 text-xs">
-            <div className="flex items-center justify-between text-muted-foreground font-semibold text-[10px] uppercase tracking-wider">
+          <div className="grid gap-2.5 sm:grid-cols-3 lg:grid-cols-1 p-4 border-b border-stone-200 bg-background/50 text-xs">
+            <div className="col-span-full flex items-center justify-between text-muted-foreground font-semibold text-[10px] uppercase tracking-wider">
               <span>Academic Context</span>
               <Building2 className="w-3 h-3 text-stone-400" />
             </div>
@@ -813,7 +814,7 @@ export default function App() {
           </div>
 
           {/* Navigation Links */}
-          <nav className="p-3 space-y-1">
+          <nav className="p-3 flex gap-1 overflow-x-auto lg:flex-col lg:gap-0 lg:space-y-1">
             {[
               { id: 'overview', label: 'Overview', icon: Workflow },
               { id: 'generate', label: 'Generate Timetable', icon: Sparkles },
@@ -829,7 +830,7 @@ export default function App() {
                   key={item.id}
                   type="button"
                   onClick={() => setActiveTab(item.id as typeof activeTab)}
-                  className={`w-full flex items-center justify-between px-3 py-2 rounded-md text-xs font-medium transition-all ${isActive
+                  className={`flex shrink-0 items-center justify-between gap-2 whitespace-nowrap px-3 py-2 lg:w-full rounded-md text-xs font-medium transition-all ${isActive
                     ? 'bg-primary/5 text-primary font-semibold border border-primary/20 shadow-xs'
                     : 'text-stone-600 hover:bg-muted hover:text-foreground'
                     }`}
@@ -873,9 +874,9 @@ export default function App() {
       {/* ─── Main Content Area ───────────────────────────────────────────── */}
       <div className="flex-1 flex flex-col min-w-0 overflow-y-auto">
         {/* Global Top Header Bar */}
-        <header className="h-16 bg-card border-b border-stone-200 flex items-center justify-between px-6 shrink-0 no-print">
-          <div>
-            <h1 className="text-base font-bold text-foreground capitalize">
+        <header className="h-16 bg-card border-b border-stone-200 flex items-center justify-between gap-3 px-4 lg:px-6 shrink-0 no-print">
+          <div className="min-w-0">
+            <h1 className="text-base font-bold text-foreground capitalize truncate">
               {activeTab === 'overview' && 'System Overview & Real-Time Metrics'}
               {activeTab === 'generate' && 'Timetable Generation Studio'}
               {activeTab === 'master' && 'Master Timetable Grid'}
@@ -919,7 +920,7 @@ export default function App() {
         </header>
 
         {/* ─── View Content ────────────────────────────────────────────────── */}
-        <main className="flex-1 p-6 space-y-6 max-w-7xl w-full mx-auto">
+        <main className="flex-1 p-4 lg:p-6 space-y-6 max-w-7xl w-full mx-auto">
           {/* VIEW 1: OVERVIEW */}
           {activeTab === 'overview' && (
             <div className="space-y-6">
@@ -1396,7 +1397,7 @@ export default function App() {
                           </div>
                           <div className="text-xs text-muted-foreground flex items-center space-x-4">
                             <span className="flex items-center space-x-1">
-                              <span className="w-2.5 h-2.5 rounded-sm bg-purple-100 border border-primary/30" />
+                              <span className="w-2.5 h-2.5 rounded-sm bg-primary/10 border border-primary/30" />
                               <span>1h Lecture</span>
                             </span>
                             <span className="flex items-center space-x-1">
@@ -1617,7 +1618,7 @@ export default function App() {
                       : 'bg-background hover:bg-stone-100 text-stone-600'
                       }`}
                   >
-                    <span>✍️</span>
+                    <PenLine className="h-3.5 w-3.5" />
                     <span>Subject Assignments</span>
                   </button>
                   <button
@@ -1628,7 +1629,7 @@ export default function App() {
                       : 'bg-background hover:bg-stone-100 text-stone-600'
                       }`}
                   >
-                    <span>📚</span>
+                    <BookOpen className="h-3.5 w-3.5" />
                     <span>Semester Offerings</span>
                   </button>
                   <button
@@ -1639,7 +1640,7 @@ export default function App() {
                       : 'bg-background hover:bg-stone-100 text-stone-600'
                       }`}
                   >
-                    <span>👥</span>
+                    <Users className="h-3.5 w-3.5" />
                     <span>Classes & Batches</span>
                   </button>
                   <button
@@ -1650,7 +1651,7 @@ export default function App() {
                       : 'bg-background hover:bg-stone-100 text-stone-600'
                       }`}
                   >
-                    <span>🎓</span>
+                    <GraduationCap className="h-3.5 w-3.5" />
                     <span>Institutional Faculty</span>
                   </button>
                   <button
@@ -1661,7 +1662,7 @@ export default function App() {
                       : 'bg-background hover:bg-stone-100 text-stone-600'
                       }`}
                   >
-                    <span>🏢</span>
+                    <Building2 className="h-3.5 w-3.5" />
                     <span>Rooms & Reservations</span>
                   </button>
                   <button
@@ -1672,7 +1673,7 @@ export default function App() {
                       : 'bg-background hover:bg-stone-100 text-stone-600'
                       }`}
                   >
-                    <span>⏱️</span>
+                    <Clock className="h-3.5 w-3.5" />
                     <span>Discrete Period Rules</span>
                   </button>
                 </div>
@@ -2581,7 +2582,7 @@ function ConventionalTimetableGrid({
       string,
       { cells: GridCell[]; span: number }
     > = {};
-    const skipCells = new Set<string>();
+    const skipCells = new Map<string, string>();
 
     divisionGrid.days.forEach((_, dayIdx) => {
       const dayPeriods = divisionGrid.slots[dayIdx] || [];
@@ -2623,7 +2624,7 @@ function ConventionalTimetableGrid({
           practicalGroupsByDayPeriod[groupKey].cells.push(c);
 
           if (canSpan) {
-            skipCells.add(`${dayIdx}-${pIdx + 1}`);
+            skipCells.set(`${dayIdx}-${pIdx + 1}`, groupKey);
           }
         });
 
@@ -2701,8 +2702,18 @@ function ConventionalTimetableGrid({
                   {divisionGrid.days.map((dayName, dayIdx) => {
                     const cellKey = `${dayIdx}-${pIdx}`;
 
-                    // Continuation cell → render empty filler (rowSpan covers this)
+                    // Continuation cell: omit the <td> entirely when the
+                    // covering practical block is actually rendered with
+                    // rowSpan={2}; otherwise render an empty filler so the
+                    // weekday columns stay aligned when filters hide the block.
                     if (skipCells.has(cellKey)) {
+                      const covering = practicalGroupsByDayPeriod[skipCells.get(cellKey)!];
+                      const coveredShown =
+                        covering &&
+                        kindFilter !== 'theory' &&
+                        covering.span === 2 &&
+                        covering.cells.some(matches);
+                      if (coveredShown) return null;
                       return <td key={dayName} className="p-0" />;
                     }
 
@@ -2977,8 +2988,11 @@ function FacultyScheduleGrid({
 
                   {scheduledDays.map((dayName, dayIdx) => {
                     const key = `${dayIdx}-${pIdx}`;
+                    // Continuation-only period: the covering practical block
+                    // always renders with rowSpan={2} here, so omit the <td>
+                    // entirely — an empty filler would shift weekday columns.
                     if (skipCells.has(key)) {
-                      return <td key={dayName} className="p-0" />;
+                      return null;
                     }
                     const sessions = sessionsByDayPeriod[key] || [];
                     const rowSpan = spanCells.has(key) ? 2 : 1;
