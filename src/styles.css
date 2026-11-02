@@ -5,27 +5,34 @@
 @custom-variant dark (&:is(.dark *));
 
 /*
- * Design system definition.
+ * Cadence v3 — institutional timetable SaaS design system.
  *
- * The @theme inline block maps CSS custom properties to Tailwind utility
- * classes (e.g. --color-primary -> bg-primary, text-primary).
+ * Single global stylesheet. Sections:
+ *   1. Design tokens (@theme inline + :root / .dark)
+ *   2. Base reset and typography
+ *   3. Application shell helpers
+ *   4. Timetable architecture
+ *   5. Session cards
+ *   6. Toast notifications
+ *   7. Scrollbars, focus, motion
+ *   8. Print
  *
- * The :root and .dark blocks define the actual color values using oklch.
- * All colors MUST use oklch format.
- *
- * To add a new semantic color:
- * 1. Add the variable to :root (light value) and .dark (dark value)
- * 2. Register it in @theme inline as --color-<name>: var(--<name>)
+ * Component layout/spacing uses Tailwind utilities in JSX; this file holds
+ * tokens, the timetable primitives, toasts, global states and print rules.
  */
 
+/* ─── 1. Design tokens ─────────────────────────────────────────────────────── */
+
 @theme inline {
+  --font-sans: "Inter", ui-sans-serif, system-ui, -apple-system, "Segoe UI",
+    Roboto, sans-serif;
+
   --radius-sm: calc(var(--radius) - 4px);
   --radius-md: calc(var(--radius) - 2px);
   --radius-lg: var(--radius);
   --radius-xl: calc(var(--radius) + 4px);
   --radius-2xl: calc(var(--radius) + 8px);
-  --radius-3xl: calc(var(--radius) + 12px);
-  --radius-4xl: calc(var(--radius) + 16px);
+
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --color-card: var(--card);
@@ -45,100 +52,443 @@
   --color-border: var(--border);
   --color-input: var(--input);
   --color-ring: var(--ring);
-  --color-ring-offset-background: var(--background);
-  --color-chart-1: var(--chart-1);
-  --color-chart-2: var(--chart-2);
-  --color-chart-3: var(--chart-3);
-  --color-chart-4: var(--chart-4);
-  --color-chart-5: var(--chart-5);
-  --color-sidebar: var(--sidebar);
-  --color-sidebar-foreground: var(--sidebar-foreground);
-  --color-sidebar-primary: var(--sidebar-primary);
-  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
-  --color-sidebar-accent: var(--sidebar-accent);
-  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
-  --color-sidebar-border: var(--sidebar-border);
-  --color-sidebar-ring: var(--sidebar-ring);
+  --color-surface-sunken: var(--surface-sunken);
+  --color-elevation: var(--elevation);
 }
 
 :root {
-  --radius: 0.625rem;
-  --background: oklch(1 0 0);
-  --foreground: oklch(0.129 0.042 264.695);
+  /* Warm ivory canvas, charcoal ink, restrained indigo accent. */
+  --radius: 0.5rem;
+
+  --background: oklch(0.985 0.004 95);            /* ivory-50  #fafaf7 */
+  --foreground: oklch(0.216 0.006 56);            /* stone-900 #1c1917 */
   --card: oklch(1 0 0);
-  --card-foreground: oklch(0.129 0.042 264.695);
+  --card-foreground: oklch(0.216 0.006 56);
   --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.129 0.042 264.695);
-  --primary: oklch(0.208 0.042 265.755);
-  --primary-foreground: oklch(0.984 0.003 247.858);
-  --secondary: oklch(0.968 0.007 247.896);
-  --secondary-foreground: oklch(0.208 0.042 265.755);
-  --muted: oklch(0.968 0.007 247.896);
-  --muted-foreground: oklch(0.554 0.046 257.417);
-  --accent: oklch(0.968 0.007 247.896);
-  --accent-foreground: oklch(0.208 0.042 265.755);
-  --destructive: oklch(0.577 0.245 27.325);
-  --destructive-foreground: oklch(0.984 0.003 247.858);
-  --border: oklch(0.929 0.013 255.508);
-  --input: oklch(0.929 0.013 255.508);
-  --ring: oklch(0.704 0.04 256.788);
-  --chart-1: oklch(0.646 0.222 41.116);
-  --chart-2: oklch(0.6 0.118 184.704);
-  --chart-3: oklch(0.398 0.07 227.392);
-  --chart-4: oklch(0.828 0.189 84.429);
-  --chart-5: oklch(0.769 0.188 70.08);
-  --sidebar: oklch(0.984 0.003 247.858);
-  --sidebar-foreground: oklch(0.129 0.042 264.695);
-  --sidebar-primary: oklch(0.208 0.042 265.755);
-  --sidebar-primary-foreground: oklch(0.984 0.003 247.858);
-  --sidebar-accent: oklch(0.968 0.007 247.896);
-  --sidebar-accent-foreground: oklch(0.208 0.042 265.755);
-  --sidebar-border: oklch(0.929 0.013 255.508);
-  --sidebar-ring: oklch(0.704 0.04 256.788);
+  --popover-foreground: oklch(0.216 0.006 56);
+  --primary: oklch(0.457 0.19 266);               /* indigo-700 #4338ca */
+  --primary-foreground: oklch(0.985 0.004 95);
+  --secondary: oklch(0.971 0.006 80);             /* stone-100 */
+  --secondary-foreground: oklch(0.268 0.007 34);
+  --muted: oklch(0.971 0.006 80);
+  --muted-foreground: oklch(0.553 0.013 58);      /* stone-500 */
+  --accent: oklch(0.955 0.007 95);                /* warm ivory mid */
+  --accent-foreground: oklch(0.268 0.007 34);
+  --destructive: oklch(0.577 0.245 27);
+  --destructive-foreground: oklch(0.985 0.004 95);
+  --border: oklch(0.931 0.008 95);                /* #e5e5df */
+  --input: oklch(0.912 0.011 95);                 /* #deded6 */
+  --ring: oklch(0.585 0.19 266);                  /* indigo-500 */
+  --surface-sunken: oklch(0.982 0.005 95);        /* sunken panel tint */
+  --elevation: 0 1px 2px rgb(28 25 23 / 0.05), 0 1px 3px rgb(28 25 23 / 0.04);
 }
 
 .dark {
-  --background: oklch(0.129 0.042 264.695);
-  --foreground: oklch(0.984 0.003 247.858);
-  --card: oklch(0.208 0.042 265.755);
-  --card-foreground: oklch(0.984 0.003 247.858);
-  --popover: oklch(0.208 0.042 265.755);
-  --popover-foreground: oklch(0.984 0.003 247.858);
-  --primary: oklch(0.929 0.013 255.508);
-  --primary-foreground: oklch(0.208 0.042 265.755);
-  --secondary: oklch(0.279 0.041 260.031);
-  --secondary-foreground: oklch(0.984 0.003 247.858);
-  --muted: oklch(0.279 0.041 260.031);
-  --muted-foreground: oklch(0.704 0.04 256.788);
-  --accent: oklch(0.279 0.041 260.031);
-  --accent-foreground: oklch(0.984 0.003 247.858);
-  --destructive: oklch(0.704 0.191 22.216);
-  --destructive-foreground: oklch(0.984 0.003 247.858);
+  --background: oklch(0.185 0.006 60);
+  --foreground: oklch(0.96 0.005 95);
+  --card: oklch(0.23 0.007 60);
+  --card-foreground: oklch(0.96 0.005 95);
+  --popover: oklch(0.23 0.007 60);
+  --popover-foreground: oklch(0.96 0.005 95);
+  --primary: oklch(0.65 0.17 266);
+  --primary-foreground: oklch(0.16 0.01 266);
+  --secondary: oklch(0.28 0.007 60);
+  --secondary-foreground: oklch(0.96 0.005 95);
+  --muted: oklch(0.28 0.007 60);
+  --muted-foreground: oklch(0.71 0.011 58);
+  --accent: oklch(0.3 0.008 60);
+  --accent-foreground: oklch(0.96 0.005 95);
+  --destructive: oklch(0.704 0.191 22);
+  --destructive-foreground: oklch(0.96 0.005 95);
   --border: oklch(1 0 0 / 10%);
   --input: oklch(1 0 0 / 15%);
-  --ring: oklch(0.551 0.027 264.364);
-  --chart-1: oklch(0.488 0.243 264.376);
-  --chart-2: oklch(0.696 0.17 162.48);
-  --chart-3: oklch(0.769 0.188 70.08);
-  --chart-4: oklch(0.627 0.265 303.9);
-  --chart-5: oklch(0.645 0.246 16.439);
-  --sidebar: oklch(0.208 0.042 265.755);
-  --sidebar-foreground: oklch(0.984 0.003 247.858);
-  --sidebar-primary: oklch(0.488 0.243 264.376);
-  --sidebar-primary-foreground: oklch(0.984 0.003 247.858);
-  --sidebar-accent: oklch(0.279 0.041 260.031);
-  --sidebar-accent-foreground: oklch(0.984 0.003 247.858);
-  --sidebar-border: oklch(1 0 0 / 10%);
-  --sidebar-ring: oklch(0.551 0.027 264.364);
+  --ring: oklch(0.55 0.15 266);
+  --surface-sunken: oklch(0.21 0.007 60);
+  --elevation: 0 1px 3px rgb(0 0 0 / 0.4);
 }
+
+/* ─── 2. Base reset and typography ─────────────────────────────────────────── */
 
 @layer base {
   * {
     border-color: var(--color-border);
   }
 
+  html {
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
   body {
     background-color: var(--color-background);
     color: var(--color-foreground);
+    font-family: var(--font-sans);
+    font-feature-settings: "cv05" 1, "ss01" 1;
+    letter-spacing: -0.006em;
+  }
+
+  h1,
+  h2,
+  h3 {
+    letter-spacing: -0.014em;
+  }
+
+  ::selection {
+    background: color-mix(in oklab, var(--primary) 12%, transparent);
+  }
+}
+
+/* ─── 3. Application shell helpers ─────────────────────────────────────────── */
+
+@layer components {
+  .panel {
+    background-color: var(--card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--elevation);
+  }
+
+  .field-control {
+    height: 2rem;
+    width: 100%;
+    border-radius: var(--radius-md);
+    border: 1px solid var(--input);
+    background-color: var(--card);
+    padding-inline: 0.625rem;
+    font-size: 0.8125rem;
+    color: var(--foreground);
+    transition: border-color 0.12s ease, box-shadow 0.12s ease;
+  }
+
+  .field-control:hover {
+    border-color: var(--color-stone-300);
+  }
+
+  .field-control:focus {
+    outline: none;
+    border-color: var(--primary);
+    box-shadow: 0 0 0 3px color-mix(in oklab, var(--primary) 14%, transparent);
+  }
+}
+
+/* ─── 4. Timetable architecture ────────────────────────────────────────────── */
+/* Rows = periods. Columns = weekdays. Practicals span two period rows with
+   rowSpan={2}; continuation cells are omitted from the DOM (not rendered as
+   empty <td>) so weekday columns can never shift. */
+
+@layer components {
+  .timetable-container {
+    background-color: var(--card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    overflow-x: auto;
+  }
+
+  .timetable-table {
+    width: 100%;
+    min-width: 56rem;
+    border-collapse: collapse;
+    font-size: 0.75rem;
+    line-height: 1.35;
+  }
+
+  .timetable-table thead th {
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    background: color-mix(in srgb, var(--card) 94%, transparent);
+    backdrop-filter: blur(5px);
+    padding: 0.625rem 0.75rem;
+    text-align: left;
+    font-size: 0.6875rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.07em;
+    color: var(--muted-foreground);
+    border-bottom: 1px solid var(--border);
+    border-right: 1px solid var(--border);
+  }
+
+  .timetable-table thead th:first-child {
+    min-width: 9.5rem;
+  }
+
+  .timetable-table thead th:not(:first-child) {
+    min-width: 8.25rem;
+  }
+
+  .timetable-table thead th:last-child {
+    border-right: none;
+  }
+
+  .timetable-table tbody td {
+    padding: 0.375rem;
+    border-bottom: 1px solid var(--border);
+    border-right: 1px solid var(--border);
+    vertical-align: top;
+    height: 4rem;
+  }
+
+  .timetable-table tbody td:last-child {
+    border-right: none;
+  }
+
+  .timetable-table tbody tr:last-child td {
+    border-bottom: none;
+  }
+
+  .timetable-table tbody td.p-0 {
+    padding: 0;
+    height: auto;
+  }
+
+  /* Period / time label column. */
+  .slot-col {
+    min-width: 9.5rem;
+    padding: 0.625rem 0.875rem !important;
+    background-color: var(--surface-sunken);
+    vertical-align: top;
+    white-space: nowrap;
+  }
+
+  /* Break separator rows between slot windows. */
+  .break-row td {
+    height: auto !important;
+    padding-block: 0.375rem !important;
+    background-color: var(--secondary);
+    font-size: 0.6875rem;
+    font-weight: 500;
+    color: var(--muted-foreground);
+  }
+
+  .timetable-empty {
+    display: flex;
+    height: 100%;
+    min-height: 3.5rem;
+    align-items: center;
+    justify-content: center;
+    font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+    font-size: 0.75rem;
+    color: var(--color-stone-300);
+  }
+}
+
+/* ─── 5. Session cards ─────────────────────────────────────────────────────── */
+
+@layer components {
+  .session-card {
+    display: block;
+    width: 100%;
+    text-align: left;
+    border-radius: var(--radius-md);
+    border: 1px solid transparent;
+    padding: 0.5rem 0.625rem;
+    cursor: pointer;
+    transition: box-shadow 0.15s ease, border-color 0.15s ease,
+      background-color 0.15s ease;
+  }
+
+  .session-card:hover {
+    box-shadow: 0 2px 6px rgb(28 25 23 / 0.09);
+  }
+
+  .session-card:focus-visible {
+    outline: 2px solid var(--ring);
+    outline-offset: 1px;
+  }
+
+  .session-card-theory {
+    background-color: var(--color-indigo-50);
+    border-color: var(--color-indigo-200);
+    color: var(--color-indigo-950);
+  }
+
+  .session-card-theory:hover {
+    border-color: var(--color-indigo-300);
+  }
+
+  .session-card-practical {
+    background-color: var(--color-emerald-50);
+    border-color: var(--color-emerald-200);
+    color: var(--color-emerald-950);
+  }
+
+  .session-card-practical:hover {
+    border-color: var(--color-emerald-300);
+  }
+
+  .session-card-conflict {
+    background-color: var(--color-red-50);
+    border-color: var(--color-red-300);
+    color: var(--color-red-950);
+  }
+}
+
+/* ─── 6. Toast notifications ───────────────────────────────────────────────── */
+
+@layer components {
+  .toast-container {
+    position: fixed;
+    right: 1.25rem;
+    bottom: 1.25rem;
+    z-index: 60;
+    display: flex;
+    width: 21rem;
+    max-width: calc(100vw - 2.5rem);
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .toast {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.625rem;
+    padding: 0.75rem 0.875rem;
+    border-radius: var(--radius-lg);
+    border: 1px solid var(--border);
+    border-left-width: 3px;
+    background-color: var(--card);
+    box-shadow: 0 12px 32px -14px rgb(28 25 23 / 0.28);
+    animation: toast-in 0.18s ease-out;
+  }
+
+  .toast-success {
+    border-left-color: var(--color-emerald-500);
+  }
+
+  .toast-error {
+    border-left-color: var(--color-red-500);
+  }
+
+  .toast-info {
+    border-left-color: var(--primary);
+  }
+}
+
+@keyframes toast-in {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* ─── 7. Scrollbars, focus, motion ─────────────────────────────────────────── */
+
+@layer base {
+  ::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: var(--color-stone-300);
+    border-radius: 8px;
+    border: 2px solid transparent;
+    background-clip: content-box;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: var(--color-stone-400);
+    background-clip: content-box;
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--ring);
+    outline-offset: 2px;
+  }
+
+  select,
+  input,
+  button {
+    font-family: inherit;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* ─── 8. Print ─────────────────────────────────────────────────────────────── */
+
+@media print {
+  :root {
+    --background: oklch(1 0 0);
+    --elevation: none;
+  }
+
+  .no-print,
+  .toast-container {
+    display: none !important;
+  }
+
+  body {
+    background: oklch(1 0 0) !important;
+    color: oklch(0.216 0.006 56) !important;
+  }
+
+  main {
+    max-width: none !important;
+    padding: 0 !important;
+  }
+
+  .panel,
+  [class*="rounded-lg"] {
+    box-shadow: none !important;
+  }
+
+  .timetable-container {
+    overflow: visible !important;
+    border-radius: 0;
+    border-color: oklch(0.75 0.01 95) !important;
+  }
+
+  .timetable-table {
+    min-width: 0 !important;
+    font-size: 9.5pt;
+  }
+
+  .timetable-table thead th {
+    position: static;
+    backdrop-filter: none;
+    background: oklch(1 0 0) !important;
+    color: oklch(0.35 0.01 60) !important;
+  }
+
+  .timetable-table tbody tr,
+  .session-card,
+  .panel {
+    break-inside: avoid;
+  }
+
+  .session-card {
+    box-shadow: none !important;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  .slot-col {
+    background: oklch(0.97 0.005 95) !important;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  @page {
+    size: A4 landscape;
+    margin: 10mm;
   }
 }
