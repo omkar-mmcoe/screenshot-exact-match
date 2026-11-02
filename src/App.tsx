@@ -728,7 +728,7 @@ export default function App() {
   return (
     <div className="min-h-screen flex bg-background text-foreground selection:bg-primary/10 font-sans">
       {/* ─── Compact Sidebar Navigation ──────────────────────────────────── */}
-      <aside className="w-64 bg-white border-r border-stone-200 flex flex-col justify-between shrink-0 no-print z-20">
+      <aside className="w-64 bg-card border-r border-stone-200 flex flex-col justify-between shrink-0 no-print z-20">
         <div>
           {/* Branding Identity */}
           <div className="h-16 flex items-center px-5 border-b border-stone-200 space-x-3">
@@ -757,7 +757,7 @@ export default function App() {
               <select
                 value={selectedInstId}
                 onChange={(e) => setSelectedInstId(e.target.value)}
-                className="w-full bg-white border border-stone-200 rounded-md px-2.5 py-1.5 text-xs font-medium text-foreground focus:outline-none focus:border-primary"
+                className="w-full bg-card border border-stone-200 rounded-md px-2.5 py-1.5 text-xs font-medium text-foreground focus:outline-none focus:border-primary"
               >
                 {institutions.length === 0 ? (
                   <option value="">Loading institutions…</option>
@@ -777,7 +777,7 @@ export default function App() {
               <select
                 value={selectedDeptId}
                 onChange={(e) => setSelectedDeptId(e.target.value)}
-                className="w-full bg-white border border-stone-200 rounded-md px-2.5 py-1.5 text-xs font-medium text-foreground focus:outline-none focus:border-primary"
+                className="w-full bg-card border border-stone-200 rounded-md px-2.5 py-1.5 text-xs font-medium text-foreground focus:outline-none focus:border-primary"
               >
                 {departments.length === 0 ? (
                   <option value="">No departments</option>
@@ -797,7 +797,7 @@ export default function App() {
               <select
                 value={selectedSemId}
                 onChange={(e) => setSelectedSemId(e.target.value)}
-                className="w-full bg-white border border-stone-200 rounded-md px-2.5 py-1.5 text-xs font-bold text-primary focus:outline-none focus:border-primary"
+                className="w-full bg-card border border-stone-200 rounded-md px-2.5 py-1.5 text-xs font-bold text-primary focus:outline-none focus:border-primary"
               >
                 {semesters.length === 0 ? (
                   <option value="">No semesters</option>
@@ -862,7 +862,7 @@ export default function App() {
             <button
               type="button"
               onClick={checkConnectivity}
-              className="w-full py-1 text-[11px] bg-white border border-red-300 text-red-700 rounded hover:bg-red-50 font-medium transition-colors"
+              className="w-full py-1 text-[11px] bg-card border border-red-300 text-red-700 rounded hover:bg-red-50 font-medium transition-colors"
             >
               Retry Connection
             </button>
@@ -873,7 +873,7 @@ export default function App() {
       {/* ─── Main Content Area ───────────────────────────────────────────── */}
       <div className="flex-1 flex flex-col min-w-0 overflow-y-auto">
         {/* Global Top Header Bar */}
-        <header className="h-16 bg-white border-b border-stone-200 flex items-center justify-between px-6 shrink-0 no-print">
+        <header className="h-16 bg-card border-b border-stone-200 flex items-center justify-between px-6 shrink-0 no-print">
           <div>
             <h1 className="text-base font-bold text-foreground capitalize">
               {activeTab === 'overview' && 'System Overview & Real-Time Metrics'}
@@ -925,7 +925,7 @@ export default function App() {
             <div className="space-y-6">
               {/* Metric Statistics Cards */}
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-                <div className="bg-white border border-stone-200 rounded-lg p-4.5 shadow-xs">
+                <div className="bg-card border border-stone-200 rounded-lg p-4.5 shadow-xs">
                   <div className="flex items-center justify-between text-muted-foreground text-xs font-medium">
                     <span>Enrolled Cohorts</span>
                     <Users className="w-4 h-4 text-primary" />
@@ -940,7 +940,7 @@ export default function App() {
                   </div>
                 </div>
 
-                <div className="bg-white border border-stone-200 rounded-lg p-4.5 shadow-xs">
+                <div className="bg-card border border-stone-200 rounded-lg p-4.5 shadow-xs">
                   <div className="flex items-center justify-between text-muted-foreground text-xs font-medium">
                     <span>Teaching Faculty</span>
                     <GraduationCap className="w-4 h-4 text-primary" />
@@ -951,7 +951,7 @@ export default function App() {
                   <div className="text-xs text-muted-foreground mt-1">{assignments.length} assigned offerings in semester</div>
                 </div>
 
-                <div className="bg-white border border-stone-200 rounded-lg p-4.5 shadow-xs">
+                <div className="bg-card border border-stone-200 rounded-lg p-4.5 shadow-xs">
                   <div className="flex items-center justify-between text-muted-foreground text-xs font-medium">
                     <span>Room Facilities</span>
                     <DoorOpen className="w-4 h-4 text-primary" />
@@ -965,7 +965,7 @@ export default function App() {
                   </div>
                 </div>
 
-                <div className="bg-white border border-stone-200 rounded-lg p-4.5 shadow-xs">
+                <div className="bg-card border border-stone-200 rounded-lg p-4.5 shadow-xs">
                   <div className="flex items-center justify-between text-muted-foreground text-xs font-medium">
                     <span>Timetable Status</span>
                     <ShieldCheck className="w-4 h-4 text-emerald-600" />
@@ -980,7 +980,7 @@ export default function App() {
               </div>
 
               {/* Precheck & Independent Validation Status Card */}
-              <div className="bg-white border border-stone-200 rounded-lg p-5 shadow-xs space-y-4">
+              <div className="bg-card border border-stone-200 rounded-lg p-5 shadow-xs space-y-4">
                 <div className="flex items-center justify-between border-b border-stone-100 pb-3">
                   <div className="flex items-center space-x-2">
                     <ShieldCheck className="w-5 h-5 text-primary" />
@@ -1089,7 +1089,7 @@ export default function App() {
                 <button
                   type="button"
                   onClick={() => setActiveTab('master')}
-                  className="px-4 py-2 bg-white border border-stone-200 text-foreground hover:bg-background rounded-md font-semibold transition-colors shadow-xs cursor-pointer"
+                  className="px-4 py-2 bg-card border border-stone-200 text-foreground hover:bg-background rounded-md font-semibold transition-colors shadow-xs cursor-pointer"
                 >
                   View Master Timetable
                 </button>
@@ -1101,7 +1101,7 @@ export default function App() {
           {activeTab === 'generate' && (
             <div className="space-y-6">
               {/* Generation Control Panel */}
-              <div className="bg-white border border-stone-200 rounded-lg p-5 shadow-xs space-y-5">
+              <div className="bg-card border border-stone-200 rounded-lg p-5 shadow-xs space-y-5">
                 <div className="flex items-center justify-between border-b border-stone-100 pb-3">
                   <div className="flex items-center space-x-2">
                     <Sparkles className="w-5 h-5 text-primary" />
@@ -1149,7 +1149,7 @@ export default function App() {
                       <button
                         type="button"
                         onClick={() => setSolverChoice('cpsat')}
-                        className={`flex-1 py-1.5 rounded font-semibold text-center transition-colors cursor-pointer ${solverChoice === 'cpsat' ? 'bg-white text-primary shadow-xs' : 'text-muted-foreground'
+                        className={`flex-1 py-1.5 rounded font-semibold text-center transition-colors cursor-pointer ${solverChoice === 'cpsat' ? 'bg-card text-primary shadow-xs' : 'text-muted-foreground'
                           }`}
                       >
                         OR-Tools CP-SAT
@@ -1157,7 +1157,7 @@ export default function App() {
                       <button
                         type="button"
                         onClick={() => setSolverChoice('csp')}
-                        className={`flex-1 py-1.5 rounded font-semibold text-center transition-colors cursor-pointer ${solverChoice === 'csp' ? 'bg-white text-primary shadow-xs' : 'text-muted-foreground'
+                        className={`flex-1 py-1.5 rounded font-semibold text-center transition-colors cursor-pointer ${solverChoice === 'csp' ? 'bg-card text-primary shadow-xs' : 'text-muted-foreground'
                           }`}
                       >
                         Custom CSP
@@ -1221,7 +1221,7 @@ export default function App() {
 
               {/* Generation Outcome & Diagnostics */}
               {simulationResult?.solver && (
-                <div className="bg-white border border-stone-200 rounded-lg p-5 shadow-xs space-y-4">
+                <div className="bg-card border border-stone-200 rounded-lg p-5 shadow-xs space-y-4">
                   <div className="flex items-center justify-between border-b border-stone-100 pb-3">
                     <div>
                       <h3 className="text-sm font-bold text-foreground">Authoritative Generation Results</h3>
@@ -1292,7 +1292,7 @@ export default function App() {
           {activeTab === 'master' && (
             <div className="space-y-4">
               {/* Filters & Export Header */}
-              <div className="bg-white border border-stone-200 rounded-lg p-3.5 flex flex-wrap items-center justify-between gap-3 text-xs no-print shadow-xs">
+              <div className="bg-card border border-stone-200 rounded-lg p-3.5 flex flex-wrap items-center justify-between gap-3 text-xs no-print shadow-xs">
                 <div className="flex items-center flex-wrap gap-2.5">
                   {/* Search */}
                   <div className="relative">
@@ -1339,7 +1339,7 @@ export default function App() {
                         key={k}
                         type="button"
                         onClick={() => setMasterKindFilter(k)}
-                        className={`px-2.5 py-1 rounded capitalize font-semibold transition-colors cursor-pointer ${masterKindFilter === k ? 'bg-white text-primary shadow-xs' : 'text-muted-foreground'
+                        className={`px-2.5 py-1 rounded capitalize font-semibold transition-colors cursor-pointer ${masterKindFilter === k ? 'bg-card text-primary shadow-xs' : 'text-muted-foreground'
                           }`}
                       >
                         {k}
@@ -1353,7 +1353,7 @@ export default function App() {
                   <button
                     type="button"
                     onClick={() => handleExportCsv('theory_timetable.csv')}
-                    className="flex items-center space-x-1 px-2.5 py-1.5 bg-white border border-stone-200 hover:bg-muted rounded-md text-stone-600 hover:text-foreground font-medium transition-colors cursor-pointer"
+                    className="flex items-center space-x-1 px-2.5 py-1.5 bg-card border border-stone-200 hover:bg-muted rounded-md text-stone-600 hover:text-foreground font-medium transition-colors cursor-pointer"
                     title="Export Theory Lectures CSV"
                   >
                     <FileSpreadsheet className="w-3.5 h-3.5 text-primary" />
@@ -1362,7 +1362,7 @@ export default function App() {
                   <button
                     type="button"
                     onClick={() => handleExportCsv('practical_batch.csv')}
-                    className="flex items-center space-x-1 px-2.5 py-1.5 bg-white border border-stone-200 hover:bg-muted rounded-md text-stone-600 hover:text-foreground font-medium transition-colors cursor-pointer"
+                    className="flex items-center space-x-1 px-2.5 py-1.5 bg-card border border-stone-200 hover:bg-muted rounded-md text-stone-600 hover:text-foreground font-medium transition-colors cursor-pointer"
                     title="Export Practical Batches CSV"
                   >
                     <FileSpreadsheet className="w-3.5 h-3.5 text-emerald-600" />
@@ -1373,7 +1373,7 @@ export default function App() {
 
               {/* Master Grids for each Division */}
               {activeTimetable.length === 0 ? (
-                <div className="bg-white border border-stone-200 rounded-lg p-12 text-center shadow-xs">
+                <div className="bg-card border border-stone-200 rounded-lg p-12 text-center shadow-xs">
                   <Calendar className="w-8 h-8 text-stone-400 mx-auto mb-3" />
                   <h3 className="text-sm font-bold text-foreground">No Timetable Loaded</h3>
                   <p className="text-xs text-muted-foreground mt-1 max-w-sm mx-auto">
@@ -1386,7 +1386,7 @@ export default function App() {
                   .map((dGrid) => {
                     const divisionMeta = divisions.find((d) => d.id === dGrid.division_id);
                     return (
-                      <div key={dGrid.division_id} className="bg-white border border-stone-200 rounded-lg p-5 shadow-xs space-y-3">
+                      <div key={dGrid.division_id} className="bg-card border border-stone-200 rounded-lg p-5 shadow-xs space-y-3">
                         <div className="flex items-center justify-between border-b border-stone-100 pb-3">
                           <div className="flex items-center space-x-2">
                             <span className="font-bold text-sm text-foreground">{dGrid.division_display_name}</span>
@@ -1432,7 +1432,7 @@ export default function App() {
           {activeTab === 'faculty' && (
             <div className="space-y-4">
               {/* Faculty Selector & Workload Header */}
-              <div className="bg-white border border-stone-200 rounded-lg p-4.5 shadow-xs flex flex-col md:flex-row md:items-center justify-between gap-4 text-xs no-print">
+              <div className="bg-card border border-stone-200 rounded-lg p-4.5 shadow-xs flex flex-col md:flex-row md:items-center justify-between gap-4 text-xs no-print">
                 <div className="flex items-center space-x-3">
                   <GraduationCap className="w-5 h-5 text-primary" />
                   <div>
@@ -1487,7 +1487,7 @@ export default function App() {
               </div>
 
               {/* Faculty Schedule Grid: Rows = Periods, Columns = Days */}
-              <div className="bg-white border border-stone-200 rounded-lg p-5 shadow-xs space-y-3">
+              <div className="bg-card border border-stone-200 rounded-lg p-5 shadow-xs space-y-3">
                 <div className="flex items-center justify-between border-b border-stone-100 pb-3">
                   <h3 className="text-sm font-bold text-foreground">
                     Weekly Schedule:{' '}
@@ -1517,7 +1517,7 @@ export default function App() {
           {activeTab === 'class' && (
             <div className="space-y-4">
               {/* Class / Division Selector Header */}
-              <div className="bg-white border border-stone-200 rounded-lg p-4.5 shadow-xs flex items-center justify-between text-xs no-print">
+              <div className="bg-card border border-stone-200 rounded-lg p-4.5 shadow-xs flex items-center justify-between text-xs no-print">
                 <div className="flex items-center space-x-3">
                   <Users className="w-5 h-5 text-primary" />
                   <div className="flex items-center space-x-2">
@@ -1554,7 +1554,7 @@ export default function App() {
                 const dGrid = activeTimetable.find((d) => d.division_id === selectedDivisionId);
                 if (!dGrid) {
                   return (
-                    <div className="bg-white border border-stone-200 rounded-lg p-12 text-center shadow-xs">
+                    <div className="bg-card border border-stone-200 rounded-lg p-12 text-center shadow-xs">
                       <Calendar className="w-8 h-8 text-stone-400 mx-auto mb-3" />
                       <h3 className="text-sm font-bold text-foreground">No Schedule for Selected Division</h3>
                       <p className="text-xs text-muted-foreground mt-1">
@@ -1565,7 +1565,7 @@ export default function App() {
                 }
 
                 return (
-                  <div className="bg-white border border-stone-200 rounded-lg p-5 shadow-xs space-y-4">
+                  <div className="bg-card border border-stone-200 rounded-lg p-5 shadow-xs space-y-4">
                     <div className="flex items-center justify-between border-b border-stone-100 pb-3">
                       <div>
                         <h3 className="text-sm font-bold text-foreground">{dGrid.division_display_name} Timetable</h3>
@@ -1576,7 +1576,7 @@ export default function App() {
                       <button
                         type="button"
                         onClick={() => handleExportCsv('practical_batch.csv')}
-                        className="flex items-center space-x-1 px-3 py-1.5 bg-white border border-stone-200 hover:bg-background rounded-md text-xs font-semibold text-foreground cursor-pointer"
+                        className="flex items-center space-x-1 px-3 py-1.5 bg-card border border-stone-200 hover:bg-background rounded-md text-xs font-semibold text-foreground cursor-pointer"
                       >
                         <FileSpreadsheet className="w-3.5 h-3.5 text-emerald-600" />
                         <span>Export Practical CSV</span>
@@ -1607,7 +1607,7 @@ export default function App() {
           {activeTab === 'settings' && (
             <div className="space-y-5">
               {/* Sub-Tab Navigation Header */}
-              <div className="bg-white border border-stone-200 rounded-lg p-3 shadow-xs flex flex-wrap items-center justify-between gap-2">
+              <div className="bg-card border border-stone-200 rounded-lg p-3 shadow-xs flex flex-wrap items-center justify-between gap-2">
                 <div className="flex flex-wrap gap-1">
                   <button
                     type="button"
@@ -1687,7 +1687,7 @@ export default function App() {
                   {/* Create Assignment Form */}
                   <form
                     onSubmit={handleCreateAssignment}
-                    className="bg-white border border-stone-200 p-4 rounded-lg shadow-xs grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-3 items-end"
+                    className="bg-card border border-stone-200 p-4 rounded-lg shadow-xs grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-3 items-end"
                   >
                     <div>
                       <label className="block text-muted-foreground text-[10px] font-bold uppercase tracking-wider mb-1">
@@ -1786,7 +1786,7 @@ export default function App() {
                   </form>
 
                   {/* Current Assignments Table */}
-                  <div className="bg-white border border-stone-200 rounded-lg shadow-xs overflow-hidden text-xs">
+                  <div className="bg-card border border-stone-200 rounded-lg shadow-xs overflow-hidden text-xs">
                     <div className="px-4 py-2.5 bg-background border-b border-stone-200 font-bold text-foreground flex justify-between items-center">
                       <span>Saved Teaching Assignments ({assignments.length})</span>
                       <span className="text-[10px] text-muted-foreground font-normal">Persists directly to SQLite</span>
@@ -1854,7 +1854,7 @@ export default function App() {
                   {/* Create Offering Form */}
                   <form
                     onSubmit={handleCreateOffering}
-                    className="bg-white border border-stone-200 p-4 rounded-lg shadow-xs grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-3 items-end"
+                    className="bg-card border border-stone-200 p-4 rounded-lg shadow-xs grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-3 items-end"
                   >
                     <div>
                       <label className="block text-muted-foreground text-[10px] font-bold uppercase tracking-wider mb-1">
@@ -1927,7 +1927,7 @@ export default function App() {
                   </form>
 
                   {/* Current Offerings Table */}
-                  <div className="bg-white border border-stone-200 rounded-lg shadow-xs overflow-hidden text-xs">
+                  <div className="bg-card border border-stone-200 rounded-lg shadow-xs overflow-hidden text-xs">
                     <div className="px-4 py-2.5 bg-background border-b border-stone-200 font-bold text-foreground flex justify-between items-center">
                       <span>Curricular Offerings for {currentSemesterName} ({offeringsList.length})</span>
                       <span className="text-[10px] text-muted-foreground font-normal">Stored in SQLite</span>
@@ -1994,7 +1994,7 @@ export default function App() {
                   {/* Create Division Form */}
                   <form
                     onSubmit={handleCreateDivision}
-                    className="bg-white border border-stone-200 p-4 rounded-lg shadow-xs grid grid-cols-1 sm:grid-cols-4 gap-3 items-end"
+                    className="bg-card border border-stone-200 p-4 rounded-lg shadow-xs grid grid-cols-1 sm:grid-cols-4 gap-3 items-end"
                   >
                     <div>
                       <label className="block text-muted-foreground text-[10px] font-bold uppercase tracking-wider mb-1">
@@ -2050,7 +2050,7 @@ export default function App() {
                   {/* Classes Card Grid */}
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     {divisions.map((div) => (
-                      <div key={div.id} className="bg-white border border-stone-200 rounded-lg p-4 shadow-xs space-y-3">
+                      <div key={div.id} className="bg-card border border-stone-200 rounded-lg p-4 shadow-xs space-y-3">
                         <div className="flex items-center justify-between border-b border-stone-100 pb-2">
                           <div>
                             <div className="font-bold text-sm text-foreground">{div.display_name || div.code}</div>
@@ -2081,7 +2081,7 @@ export default function App() {
 
               {/* Sub-Tab 4: Institutional Faculty Pool */}
               {settingsSubTab === 'faculty' && (
-                <div className="bg-white border border-stone-200 rounded-lg shadow-xs overflow-hidden text-xs">
+                <div className="bg-card border border-stone-200 rounded-lg shadow-xs overflow-hidden text-xs">
                   <div className="px-4 py-2.5 bg-background border-b border-stone-200 font-bold text-foreground flex justify-between items-center">
                     <span>Institutional Faculty Pool ({facultyList.length} Faculty Members)</span>
                     <span className="text-[10px] text-muted-foreground font-normal">Reused across all academic departments</span>
@@ -2133,7 +2133,7 @@ export default function App() {
               {settingsSubTab === 'rooms' && (
                 <div className="space-y-4">
                   {/* Protected Room Reservations Panel */}
-                  <div className="bg-white border border-amber-200 rounded-lg p-4 shadow-xs space-y-3">
+                  <div className="bg-card border border-amber-200 rounded-lg p-4 shadow-xs space-y-3">
                     <div className="flex items-center justify-between border-b border-amber-100 pb-2">
                       <div className="flex items-center space-x-2">
                         <DoorOpen className="w-4 h-4 text-amber-700" />
@@ -2278,7 +2278,7 @@ export default function App() {
                   </div>
 
                   {/* Rooms Pool Table */}
-                  <div className="bg-white border border-stone-200 rounded-lg shadow-xs overflow-hidden text-xs">
+                  <div className="bg-card border border-stone-200 rounded-lg shadow-xs overflow-hidden text-xs">
                     <div className="px-4 py-2.5 bg-background border-b border-stone-200 font-bold text-foreground flex justify-between items-center">
                       <span>Institutional Rooms & Laboratories ({roomsList.length})</span>
                       <span className="text-[10px] text-muted-foreground font-normal">Strict Room Typing Enforced</span>
@@ -2320,7 +2320,7 @@ export default function App() {
               {settingsSubTab === 'slots' && (
                 <div className="space-y-4">
                   {/* Canonical 3-Window Reference Card */}
-                  <div className="bg-white border border-stone-200 rounded-lg p-4 shadow-xs space-y-3">
+                  <div className="bg-card border border-stone-200 rounded-lg p-4 shadow-xs space-y-3">
                     <div className="flex items-center justify-between border-b border-stone-100 pb-2">
                       <div className="flex items-center space-x-2">
                         <Clock className="w-4 h-4 text-primary" />
@@ -2360,7 +2360,7 @@ export default function App() {
                   </div>
 
                   {/* Configured Periods Table */}
-                  <div className="bg-white border border-stone-200 rounded-lg shadow-xs overflow-hidden text-xs">
+                  <div className="bg-card border border-stone-200 rounded-lg shadow-xs overflow-hidden text-xs">
                     <div className="px-4 py-2.5 bg-background border-b border-stone-200 font-bold text-foreground">
                       Semester Period Boundaries ({slotConfigs.length} Configured Periods)
                     </div>
@@ -2411,7 +2411,7 @@ export default function App() {
       {/* ─── Session Details Popover / Modal ──────────────────────────────── */}
       {selectedCellDetail && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/25 backdrop-blur-[1px] p-4 no-print">
-          <div className="bg-white border border-stone-200 rounded-xl shadow-xl max-w-md w-full p-5 space-y-4 animate-in fade-in zoom-in-95 duration-150">
+          <div className="bg-card border border-stone-200 rounded-xl shadow-xl max-w-md w-full p-5 space-y-4 animate-in fade-in zoom-in-95 duration-150">
             <div className="flex items-start justify-between border-b border-stone-100 pb-3">
               <div>
                 <span className="text-[10px] font-mono font-bold uppercase text-primary tracking-wider">
@@ -2791,7 +2791,7 @@ function ConventionalTimetableGrid({
                                       onClick={() =>
                                         onSelectCell(cell, dayName, periodLabel)
                                       }
-                                      className="w-full text-left rounded border border-emerald-200 bg-white px-1.5 py-1 hover:bg-emerald-50 transition-colors cursor-pointer"
+                                      className="w-full text-left rounded border border-emerald-200 bg-card px-1.5 py-1 hover:bg-emerald-50 transition-colors cursor-pointer"
                                     >
                                       <div className="flex items-center justify-between text-[11px] font-bold text-emerald-900">
                                         <span>{cell.subject_code}</span>
@@ -3007,7 +3007,7 @@ function FacultyScheduleGrid({
                                 >
                                   <div className="flex items-center justify-between font-bold text-xs">
                                     <span>{cell.subject_code}</span>
-                                    <span className="text-[10px] font-mono px-1.5 rounded bg-white/80">
+                                    <span className="text-[10px] font-mono px-1.5 rounded bg-card/80">
                                       {divisionName}
                                       {cell.batch_code ? `-${cell.batch_code}` : ''}
                                     </span>
